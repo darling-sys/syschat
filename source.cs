@@ -29,6 +29,15 @@ namespace syschat
 					input = input.Trim();
 					d = commandHandler(d, input);
 				}
+				if(pressedKey.KeyChar == '/')
+				{
+					Console.Clear();
+					Console.Write("/");
+					string input = Console.ReadLine();
+					input = "\\" + input;
+					input = input.Trim();
+					d = commandHandler(d, input);
+				}
 				else if((pressedKey.Key == ConsoleKey.Enter) || (pressedKey.Key == ConsoleKey.Escape))
 				{
 					Console.Clear();
@@ -61,12 +70,12 @@ namespace syschat
 					Console.WriteLine("using backslash before a message turns it into a command");
 					Console.WriteLine("");
 					Console.WriteLine("available commands:");
-					Console.WriteLine("front / switch / rp / name: all 4 of these change the name");
+					Console.WriteLine("front / switch / rp / name / swap: all 5 of these change the name");
 					Console.WriteLine("dump / log / dumplog : all 3 of these save the chat log to a file");
 					Console.WriteLine("ver / version : both of these print the syschat version number");
+					Console.WriteLine("clear : this clears out the chat history without closing");
 					Console.WriteLine("quit / end : both of these close syschat without saving");
 					Console.WriteLine("nvm / no / n : all 3 of these do nothing");
-					Console.WriteLine("clear : this clears out the chat history without closing");
 					Console.WriteLine("");
 					Console.WriteLine("press any key to go back to chat now");
 					Console.WriteLine("");
@@ -116,6 +125,7 @@ namespace syschat
 					Console.Write("name: ");
 					string newName = Console.ReadLine();
 					d.myName = newName.Trim();
+					d = addMessage(d, "system", newName + " swapped in");
 					return d;
 				}
 				case "\\switch":
@@ -124,6 +134,16 @@ namespace syschat
 					Console.Write("name: ");
 					string newName = Console.ReadLine();
 					d.myName = newName.Trim();
+					d = addMessage(d, "system", newName + " swapped in");
+					return d;
+				}
+				case "\\swap":
+				{
+					Console.Clear();
+					Console.Write("name: ");
+					string newName = Console.ReadLine();
+					d.myName = newName.Trim();
+					d = addMessage(d, "system", newName + " swapped in");
 					return d;
 				}
 				case "\\name":
@@ -132,6 +152,7 @@ namespace syschat
 					Console.Write("name: ");
 					string newName = Console.ReadLine();
 					d.myName = newName.Trim();
+					d = addMessage(d, "system", newName + " swapped in");
 					return d;
 				}
 				case "\\rp":
@@ -140,6 +161,7 @@ namespace syschat
 					Console.Write("name: ");
 					string newName = Console.ReadLine();
 					d.myName = newName.Trim();
+					d = addMessage(d, "system", newName + " swapped in");
 					return d;
 				}
 				case "\\dump":
