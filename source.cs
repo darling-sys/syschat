@@ -57,246 +57,125 @@ namespace syschat
 				}
 			}
 		}
+		public static data swapout(data d)
+		{
+			Console.Clear();
+			Console.Write("name: ");
+			string newName = Console.ReadLine();
+			if(newName != "")
+			{
+				d.myName = newName.Trim();
+				d = addMessage(d, "system", newName + " swapped in");
+			}
+			return d;
+		}
 		public static data commandHandler(data d, string input)
 		{
+			input = input.Remove(0, 1); 
 			switch(input)
 			{
-				case "/help":
+				case "help":
 				{
 					Console.Clear();
 					Console.WriteLine("Syschat Help: ");
 					Console.WriteLine("");
 					Console.WriteLine("press enter to start writing a message");
-					Console.WriteLine("press the enter key to send it");
+					Console.WriteLine("press enter again to send it");
 					Console.WriteLine("");
-					Console.WriteLine("slash or backslash  before a message turns it into a command");
+					Console.WriteLine("slash before a message turns it into a command");
 					Console.WriteLine("");
 					Console.WriteLine("available commands:");
-					Console.WriteLine("front / switch / rp / name / swap: all 5 of these change the name");
-					Console.WriteLine("dump / log / dumplog : all 3 of these save the chat log to a file");
-					Console.WriteLine("ver / version : both of these print the syschat version number");
+					Console.WriteLine("front / switch / rp / name / swap: these change the name");
+					Console.WriteLine("dump / log / dumplog : these save the chat log to a file");
+					Console.WriteLine("ver / version : these print the syschat version number");
 					Console.WriteLine("clear : this clears out the chat history without closing");
-					Console.WriteLine("quit / end : both of these close syschat without saving");
-					Console.WriteLine("nvm / no / n : all 3 of these do nothing");
+					Console.WriteLine("quit / end / close : these close syschat without saving");
+					Console.WriteLine("nvm / no / n : these do nothing");
 					Console.WriteLine("");
-					Console.WriteLine("press any key to go back to chat now");
+					Console.WriteLine("press any key to go back to chatting now");
 					Console.WriteLine("");
 					Console.ReadKey();
 					return d;
 				}
-				case "/clear":
+				case "clear":
 				{
 					d = clearMessages(d);
 					return d;
 				}
-				case "/nvm":
+				case "nvm":
 				{
 					return d;
 				}
-				case "/no":
+				case "no":
 				{
 					return d;
 				}
-				case "/n":
+				case "n":
 				{
 					return d;
 				}
-				case "/end":
-				{
-					Environment.Exit(0);
-					return d;
-				}
-				case "/quit":
+				case "close":
 				{
 					Environment.Exit(0);
 					return d;
 				}
-				case "/version":
-				{
-					d = addMessage(d, "system", constance.version);
-					return d;
-				}
-				case "/ver":
-				{
-					d = addMessage(d, "system", constance.version);
-					return d;
-				}
-				case "/front":
-				{
-					Console.Clear();
-					Console.Write("name: ");
-					string newName = Console.ReadLine();
-					d.myName = newName.Trim();
-					d = addMessage(d, "system", newName + " swapped in");
-					return d;
-				}
-				case "/switch":
-				{
-					Console.Clear();
-					Console.Write("name: ");
-					string newName = Console.ReadLine();
-					d.myName = newName.Trim();
-					d = addMessage(d, "system", newName + " swapped in");
-					return d;
-				}
-				case "/swap":
-				{
-					Console.Clear();
-					Console.Write("name: ");
-					string newName = Console.ReadLine();
-					d.myName = newName.Trim();
-					d = addMessage(d, "system", newName + " swapped in");
-					return d;
-				}
-				case "/name":
-				{
-					Console.Clear();
-					Console.Write("name: ");
-					string newName = Console.ReadLine();
-					d.myName = newName.Trim();
-					d = addMessage(d, "system", newName + " swapped in");
-					return d;
-				}
-				case "/rp":
-				{
-					Console.Clear();
-					Console.Write("name: ");
-					string newName = Console.ReadLine();
-					d.myName = newName.Trim();
-					d = addMessage(d, "system", newName + " swapped in");
-					return d;
-				}
-				case "/dump":
-				{
-					dumplog(d, "log.txt");
-					return d;
-				}
-				case "/log":
-				{
-					dumplog(d, "log.txt");
-					return d;
-				}
-				case "/dumplog":
-				{
-					dumplog(d, "log.txt");
-					return d;
-				}
-				case "\\help":
-				{
-					Console.Clear();
-					Console.WriteLine("Syschat Help: ");
-					Console.WriteLine("");
-					Console.WriteLine("press enter to start writing a message");
-					Console.WriteLine("press the enter key to send it");
-					Console.WriteLine("");
-					Console.WriteLine("slash or backslash  before a message turns it into a command");
-					Console.WriteLine("");
-					Console.WriteLine("available commands:");
-					Console.WriteLine("front / switch / rp / name / swap: all 5 of these change the name");
-					Console.WriteLine("dump / log / dumplog : all 3 of these save the chat log to a file");
-					Console.WriteLine("ver / version : both of these print the syschat version number");
-					Console.WriteLine("clear : this clears out the chat history without closing");
-					Console.WriteLine("quit / end : both of these close syschat without saving");
-					Console.WriteLine("nvm / no / n : all 3 of these do nothing");
-					Console.WriteLine("");
-					Console.WriteLine("press any key to go back to chat now");
-					Console.WriteLine("");
-					Console.ReadKey();
-					return d;
-				}
-				case "\\clear":
-				{
-					d = clearMessages(d);
-					return d;
-				}
-				case "\\nvm":
-				{
-					return d;
-				}
-				case "\\no":
-				{
-					return d;
-				}
-				case "\\n":
-				{
-					return d;
-				}
-				case "\\end":
+				case "end":
 				{
 					Environment.Exit(0);
 					return d;
 				}
-				case "\\quit":
+				case "quit":
 				{
 					Environment.Exit(0);
 					return d;
 				}
-				case "\\version":
+				case "version":
 				{
 					d = addMessage(d, "system", constance.version);
 					return d;
 				}
-				case "\\ver":
+				case "ver":
 				{
 					d = addMessage(d, "system", constance.version);
 					return d;
 				}
-				case "\\front":
+				case "front":
 				{
-					Console.Clear();
-					Console.Write("name: ");
-					string newName = Console.ReadLine();
-					d.myName = newName.Trim();
-					d = addMessage(d, "system", newName + " swapped in");
+					swapout(d);
 					return d;
 				}
-				case "\\switch":
+				case "switch":
 				{
-					Console.Clear();
-					Console.Write("name: ");
-					string newName = Console.ReadLine();
-					d.myName = newName.Trim();
-					d = addMessage(d, "system", newName + " swapped in");
+					swapout(d);
 					return d;
 				}
-				case "\\swap":
+				case "swap":
 				{
-					Console.Clear();
-					Console.Write("name: ");
-					string newName = Console.ReadLine();
-					d.myName = newName.Trim();
-					d = addMessage(d, "system", newName + " swapped in");
+					swapout(d);
 					return d;
 				}
-				case "\\name":
+				case "name":
 				{
-					Console.Clear();
-					Console.Write("name: ");
-					string newName = Console.ReadLine();
-					d.myName = newName.Trim();
-					d = addMessage(d, "system", newName + " swapped in");
+					
+					swapout(d);
 					return d;
 				}
-				case "\\rp":
+				case "rp":
 				{
-					Console.Clear();
-					Console.Write("name: ");
-					string newName = Console.ReadLine();
-					d.myName = newName.Trim();
-					d = addMessage(d, "system", newName + " swapped in");
+					swapout(d);
 					return d;
 				}
-				case "\\dump":
+				case "dump":
 				{
 					dumplog(d, "log.txt");
 					return d;
 				}
-				case "\\log":
+				case "log":
 				{
 					dumplog(d, "log.txt");
 					return d;
 				}
-				case "\\dumplog":
+				case "dumplog":
 				{
 					dumplog(d, "log.txt");
 					return d;
@@ -322,7 +201,10 @@ namespace syschat
 			message m = new message();
 			m.fromName = playerName;
 			m.content = messageContent;
-			d.messages.Add(m);
+			if(messageContent != "")
+			{
+				d.messages.Add(m);
+			}
 			return d;
 		}
 		public static void printRoom(data d)
