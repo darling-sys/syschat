@@ -29,7 +29,7 @@ namespace syschat
 					input = "\\" + input;
 					d = commandHandler(d, input);
 				}
-				else if(pressedKey.Key == ConsoleKey.Enter)
+				else if((pressedKey.Key == ConsoleKey.Enter || pressedKey.Key == ConsoleKey.Escape) || (pressedKey.KeyChar == ' ' || pressedKey.KeyChar == '	'))
 				{
 					Console.Clear();
 					Console.Write(d.myName + " > ");
@@ -44,7 +44,7 @@ namespace syschat
 						d = addMessage(d, d.myName, input);
 					}
 				}
-				else if((pressedKey.KeyChar != '	' && pressedKey.KeyChar != ' ') && (pressedKey.Key != ConsoleKey.Escape && pressedKey.Key != ConsoleKey.Backspace))
+				else
 				{
 					Console.Clear();
 					Console.Write(d.myName + " > ");
@@ -67,17 +67,36 @@ namespace syschat
 					Console.WriteLine("");
 					Console.WriteLine("start typing to start writing a message");
 					Console.WriteLine("press the enter key to send it");
+					Console.WriteLine("");
 					Console.WriteLine("using backslash before a message turns it into a command");
 					Console.WriteLine("");
 					Console.WriteLine("available commands:");
 					Console.WriteLine("front / switch / rp : all 3 of these change the name of the user");
 					Console.WriteLine("dump / log / dumplog : all 3 of these save the chat log to a file");
 					Console.WriteLine("ver / version : both of these print the syschat version number");
-					Console.WriteLine("quit : this closes syschat without saving the messages sent");
+					Console.WriteLine("quit / end : both of these close syschat without saving");
+					Console.WriteLine("nvm / no / n : all 3 of these do nothing");
 					Console.WriteLine("");
-					Console.WriteLine("press any key to go back to chat");
+					Console.WriteLine("press any key to go back to chat now");
 					Console.WriteLine("");
 					Console.ReadKey();
+					return d;
+				}
+				case "\\nvm":
+				{
+					return d;
+				}
+				case "\\no":
+				{
+					return d;
+				}
+				case "\\n":
+				{
+					return d;
+				}
+				case "\\end":
+				{
+					Environment.Exit(0);
 					return d;
 				}
 				case "\\quit":
