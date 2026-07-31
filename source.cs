@@ -9,7 +9,7 @@ namespace syschat
 {
 	public class constance // helpful constance gives us info
 	{
-		public static readonly string version = "0.0.3";
+		public static readonly string version = "0.1.4";
 	}
 	public class Program
 	{
@@ -76,10 +76,16 @@ namespace syschat
 					Console.WriteLine("ver / version : both of these print the syschat version number");
 					Console.WriteLine("quit / end : both of these close syschat without saving");
 					Console.WriteLine("nvm / no / n : all 3 of these do nothing");
+					Console.WriteLine("clear : this clears out the chat history without closing");
 					Console.WriteLine("");
 					Console.WriteLine("press any key to go back to chat now");
 					Console.WriteLine("");
 					Console.ReadKey();
+					return d;
+				}
+				case "\\clear":
+				{
+					d = clearMessages(d);
 					return d;
 				}
 				case "\\nvm":
@@ -184,6 +190,12 @@ namespace syschat
 			{
 				Console.WriteLine(m.fromName + " : " + m.content);
 			}
+		}
+		public static data clearMessages(data d)
+		{
+			List<message> m = new List<message>();
+			d.messages = m;
+			return d;
 		}
 	}
 	public class data
