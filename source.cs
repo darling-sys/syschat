@@ -21,7 +21,7 @@ namespace syschat
 				if(pressedKey.KeyChar == '\\')
 				{
 					Console.Clear();
-					Console.Write("\\");
+					Console.Write(d.myName + " > \\");
 					string input = Console.ReadLine();
 					input = "\\" + input;
 					input = input.Trim();
@@ -30,7 +30,7 @@ namespace syschat
 				else if(pressedKey.KeyChar == '/')
 				{
 					Console.Clear();
-					Console.Write("/");
+					Console.Write(d.myName + " > /");
 					string input = Console.ReadLine();
 					input = "/" + input;
 					input = input.Trim();
@@ -90,7 +90,7 @@ namespace syschat
 		}
 		public static data commandHandler(data d, string input)
 		{
-			input = input.Remove(0, 1); 
+			input = input.Remove(0, 1);
 			switch(input)
 			{
 				case "help":
