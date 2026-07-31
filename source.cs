@@ -51,10 +51,6 @@ namespace syschat
 						d = addMessage(d, d.myName, input);
 					}
 				}
-				else
-				{
-					// do nothing for now (this check will be useful later)
-				}
 			}
 		}
 		public static data swapout(data d)
