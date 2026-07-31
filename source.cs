@@ -64,7 +64,7 @@ namespace syschat
 					Console.Clear();
 					Console.WriteLine("Syschat Help: ");
 					Console.WriteLine("");
-					Console.WriteLine("press enter or escape to start writing a message");
+					Console.WriteLine("press enter to start writing a message");
 					Console.WriteLine("press the enter key to send it");
 					Console.WriteLine("");
 					Console.WriteLine("using backslash before a message turns it into a command");
