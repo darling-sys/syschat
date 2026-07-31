@@ -25,8 +25,8 @@ namespace syschat
 					Console.Clear();
 					Console.Write("\\");
 					string input = Console.ReadLine();
-					input = input.Trim();
 					input = "\\" + input;
+					input = input.Trim();
 					d = commandHandler(d, input);
 				}
 				else if((pressedKey.Key == ConsoleKey.Enter || pressedKey.Key == ConsoleKey.Escape) || (pressedKey.KeyChar == ' ' || pressedKey.KeyChar == '	'))
@@ -50,8 +50,8 @@ namespace syschat
 					Console.Write(d.myName + " > ");
 					Console.Write(pressedKey.KeyChar);
 					string input = Console.ReadLine();
-					input = input.Trim();
 					input = pressedKey.KeyChar + input;
+					input = input.Trim();
 					d = addMessage(d, d.myName, input);
 				}
 			}
