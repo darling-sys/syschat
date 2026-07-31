@@ -5,9 +5,9 @@ using System.Text;
 using System.IO;
 namespace syschat
 {
-	public class constance // helpful constance gives us info
+	public class constance
 	{
-		public static readonly string version = "0.1.4";
+		public static readonly string version = "0.1.5";
 	}
 	public class Program
 	{
@@ -69,6 +69,29 @@ namespace syschat
 			}
 			return d;
 		}
+		public static data helper(data d)
+		{
+			Console.Clear();
+			Console.WriteLine("Syschat Help: ");
+			Console.WriteLine("");
+			Console.WriteLine("press enter to start writing a message");
+			Console.WriteLine("press enter again to send it");
+			Console.WriteLine("");
+			Console.WriteLine("slash before a message turns it into a command");
+			Console.WriteLine("");
+			Console.WriteLine("available commands:");
+			Console.WriteLine("front / switch / rp / name / swap: these change the name");
+			Console.WriteLine("dump / log / dumplog : these save the chat log to a file");
+			Console.WriteLine("ver / version : these print the syschat version number");
+			Console.WriteLine("clear : this clears out the chat history without closing");
+			Console.WriteLine("quit / end / close : these close syschat without saving");
+			Console.WriteLine("nvm / no / n : these do nothing");
+			Console.WriteLine("");
+			Console.WriteLine("press any key to go back to chatting now");
+			Console.WriteLine("");
+			Console.ReadKey();
+			return d;
+		}
 		public static data commandHandler(data d, string input)
 		{
 			input = input.Remove(0, 1); 
@@ -76,25 +99,7 @@ namespace syschat
 			{
 				case "help":
 				{
-					Console.Clear();
-					Console.WriteLine("Syschat Help: ");
-					Console.WriteLine("");
-					Console.WriteLine("press enter to start writing a message");
-					Console.WriteLine("press enter again to send it");
-					Console.WriteLine("");
-					Console.WriteLine("slash before a message turns it into a command");
-					Console.WriteLine("");
-					Console.WriteLine("available commands:");
-					Console.WriteLine("front / switch / rp / name / swap: these change the name");
-					Console.WriteLine("dump / log / dumplog : these save the chat log to a file");
-					Console.WriteLine("ver / version : these print the syschat version number");
-					Console.WriteLine("clear : this clears out the chat history without closing");
-					Console.WriteLine("quit / end / close : these close syschat without saving");
-					Console.WriteLine("nvm / no / n : these do nothing");
-					Console.WriteLine("");
-					Console.WriteLine("press any key to go back to chatting now");
-					Console.WriteLine("");
-					Console.ReadKey();
+					d = helper(d);
 					return d;
 				}
 				case "clear":
@@ -141,28 +146,28 @@ namespace syschat
 				}
 				case "front":
 				{
-					swapout(d);
+					d = swapout(d);
 					return d;
 				}
 				case "switch":
 				{
-					swapout(d);
+					d = swapout(d);
 					return d;
 				}
 				case "swap":
 				{
-					swapout(d);
+					d = swapout(d);
 					return d;
 				}
 				case "name":
 				{
 					
-					swapout(d);
+					d = swapout(d);
 					return d;
 				}
 				case "rp":
 				{
-					swapout(d);
+					d = swapout(d);
 					return d;
 				}
 				case "dump":
