@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -11,49 +9,50 @@ namespace syschat
 {
 	public class constance // helpful constance gives us info
 	{
-		public static readonly string version = "0.0.2";
+		public static readonly string version = "0.0.3";
 	}
 	public class Program
 	{
 		public static void Main(string[] args)
 		{
-			int sleepTime = 400;
-			if(args.Length > 0)
-			{
-				int.TryParse(args[0], out sleepTime);
-			}
 			data d = new data();
 			while(true)
 			{
 				printRoom(d);
-				Thread.Sleep(sleepTime);
-				if(Console.KeyAvailable)
+				ConsoleKeyInfo pressedKey = Console.ReadKey(true);
+				if(pressedKey.KeyChar == '\\')
 				{
-					ConsoleKeyInfo pressedKey = Console.ReadKey(true);
-					if(pressedKey.KeyChar == '\\')
+					Console.Clear();
+					Console.Write("\\");
+					string input = Console.ReadLine();
+					input = input.Trim();
+					input = "\\" + input;
+					d = commandHandler(d, input);
+				}
+				else if(pressedKey.Key == ConsoleKey.Enter)
+				{
+					Console.Clear();
+					Console.Write(d.myName + " > ");
+					string input = Console.ReadLine();
+					input = input.Trim();
+					if(input.StartsWith("\\"))
 					{
-						Console.Clear();
-						Console.Write("\\");
-						string input = Console.ReadLine();
-						input = input.Trim();
-						input = "\\" + input;
 						d = commandHandler(d, input);
 					}
-					else if(pressedKey.Key == ConsoleKey.Enter)
+					else
 					{
-						Console.Clear();
-						Console.Write(d.myName + " > ");
-						string input = Console.ReadLine();
-						input = input.Trim();
-						if(input.StartsWith("\\"))
-						{
-							d = commandHandler(d, input);
-						}
-						else
-						{
-							d = addMessage(d, d.myName, input);
-						}
+						d = addMessage(d, d.myName, input);
 					}
+				}
+				else if((pressedKey.KeyChar != '	' && pressedKey.KeyChar != ' ') && (pressedKey.Key != ConsoleKey.Escape && pressedKey.Key != ConsoleKey.Backspace))
+				{
+					Console.Clear();
+					Console.Write(d.myName + " > ");
+					Console.Write(pressedKey.KeyChar);
+					string input = Console.ReadLine();
+					input = input.Trim();
+					input = pressedKey.KeyChar + input;
+					d = addMessage(d, d.myName, input);
 				}
 			}
 		}
@@ -66,8 +65,8 @@ namespace syschat
 					Console.Clear();
 					Console.WriteLine("Syschat Help: ");
 					Console.WriteLine("");
-					Console.WriteLine("press the enter key to start writing a message");
-					Console.WriteLine("press the enter key again to send it");
+					Console.WriteLine("start typing to start writing a message");
+					Console.WriteLine("press the enter key to send it");
 					Console.WriteLine("using backslash before a message turns it into a command");
 					Console.WriteLine("");
 					Console.WriteLine("available commands:");
@@ -76,9 +75,7 @@ namespace syschat
 					Console.WriteLine("ver / version : both of these print the syschat version number");
 					Console.WriteLine("quit : this closes syschat without saving the messages sent");
 					Console.WriteLine("");
-					Console.WriteLine("run syschat with a number as an argument to change the rendertime");
-					Console.WriteLine("");
-					Console.WriteLine("press any key to go back to chat rendering");
+					Console.WriteLine("press any key to go back to chat");
 					Console.WriteLine("");
 					Console.ReadKey();
 					return d;
