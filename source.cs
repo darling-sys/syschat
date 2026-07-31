@@ -29,7 +29,7 @@ namespace syschat
 					input = input.Trim();
 					d = commandHandler(d, input);
 				}
-				else if((pressedKey.Key == ConsoleKey.Enter || pressedKey.Key == ConsoleKey.Escape) || (pressedKey.KeyChar == ' ' || pressedKey.KeyChar == '	'))
+				else if((pressedKey.Key == ConsoleKey.Enter) || (pressedKey.Key == ConsoleKey.Escape))
 				{
 					Console.Clear();
 					Console.Write(d.myName + " > ");
@@ -44,16 +44,6 @@ namespace syschat
 						d = addMessage(d, d.myName, input);
 					}
 				}
-				else
-				{
-					Console.Clear();
-					Console.Write(d.myName + " > ");
-					Console.Write(pressedKey.KeyChar);
-					string input = Console.ReadLine();
-					input = pressedKey.KeyChar + input;
-					input = input.Trim();
-					d = addMessage(d, d.myName, input);
-				}
 			}
 		}
 		public static data commandHandler(data d, string input)
@@ -65,13 +55,13 @@ namespace syschat
 					Console.Clear();
 					Console.WriteLine("Syschat Help: ");
 					Console.WriteLine("");
-					Console.WriteLine("start typing to start writing a message");
+					Console.WriteLine("press enter or escape to start writing a message");
 					Console.WriteLine("press the enter key to send it");
 					Console.WriteLine("");
 					Console.WriteLine("using backslash before a message turns it into a command");
 					Console.WriteLine("");
 					Console.WriteLine("available commands:");
-					Console.WriteLine("front / switch / rp : all 3 of these change the name of the user");
+					Console.WriteLine("front / switch / rp / name: all 4 of these change the name");
 					Console.WriteLine("dump / log / dumplog : all 3 of these save the chat log to a file");
 					Console.WriteLine("ver / version : both of these print the syschat version number");
 					Console.WriteLine("quit / end : both of these close syschat without saving");
@@ -129,6 +119,14 @@ namespace syschat
 					return d;
 				}
 				case "\\switch":
+				{
+					Console.Clear();
+					Console.Write("name: ");
+					string newName = Console.ReadLine();
+					d.myName = newName.Trim();
+					return d;
+				}
+				case "\\name":
 				{
 					Console.Clear();
 					Console.Write("name: ");
