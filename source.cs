@@ -8,7 +8,7 @@ namespace syschat
 {
 	public class constance
 	{
-		public static readonly string version = "0.2.0";
+		public static readonly string version = "0.2.1";
 		public static readonly string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + Path.DirectorySeparatorChar +"syschat" + Path.DirectorySeparatorChar + "log.data";
 		public static readonly string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + Path.DirectorySeparatorChar +"syschat";
 	}
@@ -26,7 +26,7 @@ namespace syschat
 				}
 				catch
 				{
-					//
+					f = d;
 				}
 				d = f;
 			}
@@ -264,6 +264,7 @@ namespace syschat
 		{
 			List<message> m = new List<message>();
 			d.messages = m;
+			serialize(d, constance.path);
 			return d;
 		}
 	}
