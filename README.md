@@ -1,3 +1,8 @@
+# Legal
+syschat is licensed under the AGPL 3.0 license
+
+check LICENSE for the full text of this license
+
 # Technical
 syschat requires either one of the two implementations of the Common Language Runtime:
 1. dotnet runtime (a microsoft product)
