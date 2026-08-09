@@ -3,17 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 namespace syschat
 {
 	public class constance
 	{
-		public static readonly string version = "0.1.5";
+		public static readonly string version = "0.2.0";
+		public static readonly string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + Path.DirectorySeparatorChar +"syschat" + Path.DirectorySeparatorChar + "log.data";
+		public static readonly string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + Path.DirectorySeparatorChar +"syschat";
 	}
 	public class Program
 	{
 		public static void Main(string[] args)
 		{
 			data d = new data();
+			data f = new data();
+			if(File.Exists(constance.path))
+			{
+				try
+				{
+					f = deserialize(constance.path);
+				}
+				catch
+				{
+					//
+				}
+				d = f;
+			}
+			else
+			{
+				if(!(Directory.Exists(constance.folder)))
+				{
+					Directory.CreateDirectory(constance.folder);
+				}
+				File.Create(constance.path);
+			}
 			while(true)
 			{
 				printRoom(d);
@@ -52,6 +76,25 @@ namespace syschat
 					}
 				}
 			}
+		}
+		public static data deserialize(string path)
+		{
+			data d = new data();
+			using(FileStream fs = new FileStream(constance.path, FileMode.Open))
+			{
+				BinaryFormatter formatter = new BinaryFormatter();
+				d = (data)formatter.Deserialize(fs);
+			}
+			return d;
+		}
+		public static data serialize(data d, string path)
+		{
+			using(FileStream fs = new FileStream(constance.path, FileMode.Create))
+			{
+				BinaryFormatter formatter = new BinaryFormatter();
+				formatter.Serialize(fs, d);
+			}
+			return d;
 		}
 		public static data swapout(data d)
 		{
@@ -206,6 +249,7 @@ namespace syschat
 			{
 				d.messages.Add(m);
 			}
+			serialize(d, constance.path);
 			return d;
 		}
 		public static void printRoom(data d)
@@ -223,11 +267,13 @@ namespace syschat
 			return d;
 		}
 	}
+	[Serializable]
 	public class data
 	{
 		public string myName = "me";
 		public List<message> messages = new List<message>();
 	}
+	[Serializable]
 	public class message
 	{
 		public string fromName;
