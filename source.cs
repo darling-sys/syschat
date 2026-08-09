@@ -8,7 +8,7 @@ namespace syschat
 {
 	public class constance
 	{
-		public static readonly string version = "0.2.1";
+		public static readonly string version = "0.2.6";
 		public static readonly string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + Path.DirectorySeparatorChar +"syschat" + Path.DirectorySeparatorChar + "log.data";
 		public static readonly string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + Path.DirectorySeparatorChar +"syschat";
 	}
@@ -26,9 +26,9 @@ namespace syschat
 				}
 				catch
 				{
-					f = d;
+					f = d; // data corrupted! just make it anew!
 				}
-				d = f;
+				d = f; // load the data into a usable object
 			}
 			else
 			{
@@ -38,6 +38,7 @@ namespace syschat
 				}
 				File.Create(constance.path);
 			}
+			d = clearSystemMessages(d);
 			while(true)
 			{
 				printRoom(d);
@@ -230,6 +231,13 @@ namespace syschat
 					return d;
 				}
 			}
+		}
+		public static data clearSystemMessages(data d)
+		{
+			List<message> mess = d.messages;
+			mess.RemoveAll(message => message.fromName == "system");
+			d.messages = mess;
+			return d;
 		}
 		public static void dumplog(data d, string path)
 		{
